@@ -5,11 +5,13 @@ import 'package:shopping_app/module/login_screen/login_screen.dart';
 import 'package:shopping_app/module/on_boarding/on_boarding.dart';
 import 'package:shopping_app/module/register_screen/register_screen.dart';
 import 'package:shopping_app/my_bloc_observer.dart';
+import 'package:shopping_app/shared/network/local/dio_helper.dart';
 import 'package:shopping_app/shared/themes/themes.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
+  DioHelper.init();
   runApp(const ShopApp());
 }
 

@@ -11,5 +11,8 @@ class ShopLoginSuccess extends ShopLoginState {}
 
 class ShopLoginFailure extends ShopLoginState {
   final String errMessage;
+
   ShopLoginFailure(this.errMessage);
 }
+
+class ShopChangePasswordVisibility extends ShopLoginState {}

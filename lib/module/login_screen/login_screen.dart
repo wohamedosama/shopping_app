@@ -11,6 +11,7 @@ import '../../constant.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   static String id = loginScreenId;
+
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var formKey = GlobalKey<FormState>();
@@ -62,7 +63,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 15),
                         DefaultTextFormFields(
-                          onSaved: (value) {
+                          onSubmitted: (value) {
                             if (formKey.currentState!.validate()) {
                               ShopLoginCubit.get(context).userLogin(
                                 email: emailController.text,
@@ -70,7 +71,12 @@ class LoginScreen extends StatelessWidget {
                               );
                             }
                           },
-                          suffixIcon: const Icon(Icons.visibility),
+                          isPassword: ShopLoginCubit.get(context).isPassword,
+                          suffixIcon: ShopLoginCubit.get(context).suffix,
+                          suffixPressed: () {
+                            ShopLoginCubit.get(context)
+                                .changePasswordVisibility();
+                          },
                           textEditingController: passwordController,
                           type: TextInputType.visiblePassword,
                           prefix: const Icon(Icons.lock_outlined),

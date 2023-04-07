@@ -8,9 +8,11 @@ class DefaultTextFormFields extends StatelessWidget {
     required this.type,
     required this.prefix,
     required this.label,
+    this.isPassword = false,
     this.isClickable = true,
-    this.onSaved,
+    this.onSubmitted,
     this.suffixIcon,
+    this.suffixPressed,
   });
 
   final TextEditingController textEditingController;
@@ -19,15 +21,17 @@ class DefaultTextFormFields extends StatelessWidget {
   final String label;
   final void Function()? onTap;
   final bool? isClickable;
-
-  final void Function(String?)? onSaved;
-  final Icon? suffixIcon;
+  final bool isPassword;
+  final void Function(String?)? onSubmitted;
+  final IconData? suffixIcon;
+  final void Function()? suffixPressed;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: isPassword,
+      onFieldSubmitted: onSubmitted,
       onTap: onTap,
-      onSaved: onSaved,
       controller: textEditingController,
       keyboardType: type,
       validator: (value) {
@@ -39,7 +43,14 @@ class DefaultTextFormFields extends StatelessWidget {
       },
       enabled: isClickable!,
       decoration: InputDecoration(
-          suffixIcon: suffixIcon,
+          suffixIcon: suffixIcon != null
+              ? IconButton(
+            onPressed: suffixPressed,
+            icon: Icon(
+              suffixIcon,
+            ),
+          )
+              : null,
           enabledBorder: buildBorder(),
           focusedBorder: buildBorder(),
           prefixIcon: prefix,
