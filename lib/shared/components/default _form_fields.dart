@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DefaultTextFormFields extends StatelessWidget {
   const DefaultTextFormFields({
     Key? key,
-    @required this.onTap,
+    this.onTap,
     required this.textEditingController,
     required this.type,
     required this.prefix,
@@ -45,11 +45,11 @@ class DefaultTextFormFields extends StatelessWidget {
       decoration: InputDecoration(
           suffixIcon: suffixIcon != null
               ? IconButton(
-            onPressed: suffixPressed,
-            icon: Icon(
-              suffixIcon,
-            ),
-          )
+                  onPressed: suffixPressed,
+                  icon: Icon(
+                    suffixIcon,
+                  ),
+                )
               : null,
           enabledBorder: buildBorder(),
           focusedBorder: buildBorder(),

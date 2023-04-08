@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopping_app/model/shop_login_model/shop_login_model.dart';
 import 'package:shopping_app/shared/network/local/dio_helper.dart';
 import 'package:shopping_app/shared/network/remote/end_points.dart';
 
@@ -9,6 +10,7 @@ class ShopLoginCubit extends Cubit<ShopLoginState> {
   ShopLoginCubit() : super(ShopLoginInitial());
 
   static ShopLoginCubit get(context) => BlocProvider.of(context);
+  ShopLoginModel? shopLoginModel;
 
   void userLogin({
     required String email,
@@ -19,8 +21,13 @@ class ShopLoginCubit extends Cubit<ShopLoginState> {
       'email': email,
       'password': password,
     }).then((value) {
-      print(value!);
-      emit(ShopLoginSuccess());
+      print(value!.data);
+      shopLoginModel = ShopLoginModel.fromJsom(value.data);
+      print(shopLoginModel!.message);
+      print(shopLoginModel!.status);
+      print(shopLoginModel!.data!.email);
+      print(shopLoginModel!.data!.phone);
+      emit(ShopLoginSuccess(shopLoginModel!));
     }).catchError((error) {
       print(error.toString());
 
