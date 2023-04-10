@@ -1,7 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping_app/cubits/shop_login_cubit.dart';
+import 'package:shopping_app/cubits/login/shop_login_cubit.dart';
 import 'package:shopping_app/layout/shop/shop_layout.dart';
 import 'package:shopping_app/module/register_screen/register_screen.dart';
 import 'package:shopping_app/shared/components/default%20_form_fields.dart';
