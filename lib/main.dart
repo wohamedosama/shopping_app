@@ -7,7 +7,6 @@ import 'package:shopping_app/module/login_screen/login_screen.dart';
 import 'package:shopping_app/module/on_boarding/on_boarding.dart';
 import 'package:shopping_app/module/register_screen/register_screen.dart';
 import 'package:shopping_app/module/search/search_screen.dart';
-import 'package:shopping_app/module/settings/settings_screen.dart';
 import 'package:shopping_app/my_bloc_observer.dart';
 import 'package:shopping_app/shared/network/local/shared_preferences.dart';
 import 'package:shopping_app/shared/network/remote/dio_helper.dart';
@@ -45,7 +44,7 @@ class ShopApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => ShopLoginCubit()),
-        BlocProvider(create: (context) => ShopCubit()),
+        BlocProvider(create: (context) => ShopCubit()..getHomeData()),
       ],
       child: MaterialApp(
         themeMode: ThemeMode.light,

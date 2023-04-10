@@ -6,3 +6,13 @@ abstract class ShopState {}
 class ShopInitial extends ShopState {}
 
 class ChangeBottomNavigationState extends ShopState {}
+
+class ShopLoadingHomeDataState extends ShopState {}
+
+class ShopSuccessHomeDataState extends ShopState {}
+
+class ShopLFailureHomeDataState extends ShopState {
+  final String errorMessage;
+
+  ShopLFailureHomeDataState(this.errorMessage);
+}
