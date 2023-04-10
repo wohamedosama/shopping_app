@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_app/model/shop_login_model/shop_login_model.dart';
-import 'package:shopping_app/shared/network/local/dio_helper.dart';
-import 'package:shopping_app/shared/network/remote/end_points.dart';
+import 'package:shopping_app/shared/end_points.dart';
+import 'package:shopping_app/shared/network/local/shared_preferences.dart';
+import 'package:shopping_app/shared/network/remote/dio_helper.dart';
 
 part 'shop_login_state.dart';
 
@@ -43,5 +44,18 @@ class ShopLoginCubit extends Cubit<ShopLoginState> {
     suffix =
         isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
     emit(ShopChangePasswordVisibility());
+  }
+
+  bool isDark = false;
+
+  void changeAppTheme(bool? fromShared) {
+    if (fromShared != null) {
+      isDark = fromShared;
+      emit(AppChangeModeState());
+    } else {
+      isDark != isDark;
+      CacheHelper.saveData(key: 'isDark', value: isDark);
+      emit(AppChangeModeState());
+    }
   }
 }

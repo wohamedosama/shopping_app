@@ -20,3 +20,5 @@ class ShopLoginFailure extends ShopLoginState {
 }
 
 class ShopChangePasswordVisibility extends ShopLoginState {}
+
+class AppChangeModeState extends ShopLoginState {}

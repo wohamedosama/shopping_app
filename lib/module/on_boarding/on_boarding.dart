@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app/module/login_screen/login_screen.dart';
 import 'package:shopping_app/shared/components/navigator_method.dart';
 import 'package:shopping_app/shared/components/text_button.dart';
+import 'package:shopping_app/shared/network/local/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../constant.dart';
@@ -39,6 +40,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   var pageController = PageController();
   bool isLast = false;
 
+  void submit() async {
+    await CacheHelper.saveData(key: 'onBoarding', value: true).then((value) {
+      if (value) {
+        NavigateTo().navigateAndReplacement(context, LoginScreen());
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +56,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           TextButtonItem(
               child: const Text('SKIP'),
               onPressed: () {
-                NavigateTo().navigateAndReplacement(context, LoginScreen());
+                submit();
               }),
         ],
       ),
@@ -97,8 +106,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 FloatingActionButton(
                   onPressed: () {
                     if (isLast) {
-                      NavigateTo()
-                          .navigateAndReplacement(context, LoginScreen());
+                      submit();
                     } else {
                       pageController.nextPage(
                         duration: const Duration(milliseconds: 750),

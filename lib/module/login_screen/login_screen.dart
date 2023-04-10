@@ -1,11 +1,14 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shopping_app/cubits/shop_login_cubit.dart';
+import 'package:shopping_app/layout/shop/shop_layout.dart';
 import 'package:shopping_app/module/register_screen/register_screen.dart';
 import 'package:shopping_app/shared/components/default%20_form_fields.dart';
 import 'package:shopping_app/shared/components/default_button.dart';
+import 'package:shopping_app/shared/components/flutter_toast.dart';
+import 'package:shopping_app/shared/components/navigator_method.dart';
+import 'package:shopping_app/shared/network/local/shared_preferences.dart';
 
 import '../../constant.dart';
 
@@ -25,23 +28,16 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is ShopLoginSuccess) {
             if (state.shopLoginModel.status!) {
-              Fluttertoast.showToast(
-                msg: state.shopLoginModel.message!,
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 5,
-                backgroundColor: Colors.green,
-                textColor: Colors.white,
-                fontSize: 16,
-              );
+              CacheHelper.saveData(
+                      key: 'token', value: state.shopLoginModel.data!.token)
+                  .then((value) {
+                NavigateTo()
+                    .navigateAndReplacement(context, const ShopLayout());
+              });
             } else {
-              Fluttertoast.showToast(
-                msg: state.shopLoginModel.message!,
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0,
+              ShowFlutterToast.showToast(
+                message: state.shopLoginModel.message!,
+                state: ToastState.error,
               );
             }
           }
