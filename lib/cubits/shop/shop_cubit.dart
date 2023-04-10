@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopping_app/constant.dart';
 import 'package:shopping_app/model/home_model/home_model.dart';
 import 'package:shopping_app/module/categories/categories_screen.dart';
 import 'package:shopping_app/module/favorites/favorites_screen.dart';
@@ -14,6 +15,8 @@ class ShopCubit extends Cubit<ShopState> {
   ShopCubit() : super(ShopInitial());
 
   static ShopCubit get(context) => BlocProvider.of(context);
+  HomeModel? homeModel;
+
   int currentIndex = 0;
   List<Widget> screens = const [
     ProductsScreen(),
@@ -27,12 +30,15 @@ class ShopCubit extends Cubit<ShopState> {
     emit(ChangeBottomNavigationState());
   }
 
-  HomeModel? homeModel;
-
   void getHomeData() {
     emit(ShopLoadingHomeDataState());
-    DioHelper.getDate(url: home).then((value) {
+    DioHelper.getDate(
+      url: home,
+      token: token,
+    ).then((value) {
+      print(value.data);
       homeModel = HomeModel.fromJson(value.data);
+
       print(homeModel!.data!.banners![0].image);
       print(homeModel!.status);
       emit(ShopSuccessHomeDataState());
