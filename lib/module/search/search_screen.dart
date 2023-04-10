@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({Key? key}) : super(key: key);
