@@ -72,11 +72,11 @@ flutter:
 
   uses-material-design: true
   fonts:
-    - family: Jannah
+    - family: Titillium_Web
       fonts:
-        - asset: assets/fonts/alfont_com_AAJannatLT-.ttf
-        - asset: assets/fonts/Janna LT Bold.ttf
-        - asset: assets/fonts/Janna LT Regular.ttf
+        - asset: assets/fonts/TitilliumWeb-SemiBold.ttf
+
+
 
   assets:
     - assets/images/

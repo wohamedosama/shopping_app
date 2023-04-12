@@ -5,7 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 import '../../constant.dart';
 
 ThemeData darkTheme = ThemeData(
-  fontFamily: 'Janna',
+  fontFamily: 'Titillium_Web',
   primarySwatch: defaultColor,
   // floatingActionButtonTheme: const FloatingActionButtonThemeData(
   //   backgroundColor: defaultColor,
@@ -41,7 +41,7 @@ ThemeData darkTheme = ThemeData(
   ),
 );
 ThemeData lightTheme = ThemeData(
-  fontFamily: 'Janna',
+  fontFamily: 'Titillium_Web',
   primarySwatch: defaultColor,
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
