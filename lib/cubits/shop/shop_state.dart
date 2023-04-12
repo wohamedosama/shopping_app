@@ -16,3 +16,11 @@ class ShopLFailureHomeDataState extends ShopState {
 
   ShopLFailureHomeDataState(this.errorMessage);
 }
+
+class ShopSuccessCategoriesDataState extends ShopState {}
+
+class ShopLFailureCategoriesDataState extends ShopState {
+  final String errorMessage;
+
+  ShopLFailureCategoriesDataState(this.errorMessage);
+}

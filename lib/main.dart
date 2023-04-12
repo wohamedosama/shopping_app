@@ -44,7 +44,10 @@ class ShopApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => ShopLoginCubit()),
-        BlocProvider(create: (context) => ShopCubit()..getHomeData()),
+        BlocProvider(
+            create: (context) => ShopCubit()
+              ..getHomeData()
+              ..getCategoriesDate()),
       ],
       child: MaterialApp(
         themeMode: ThemeMode.light,
