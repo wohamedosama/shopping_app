@@ -18,7 +18,7 @@ void main() async {
   DioHelper.init();
   await CacheHelper.init();
   Widget? widget;
-  bool onBoarding = CacheHelper.getData(key: 'onBoarding');
+  bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
   String? token = CacheHelper.getData(key: 'token');
 
   if (onBoarding != null) {
@@ -44,7 +44,11 @@ class ShopApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => ShopLoginCubit()),
-        BlocProvider(create: (context) => ShopCubit()..getHomeData()),
+        BlocProvider(
+            create: (context) => ShopCubit()
+              ..getHomeData()
+              ..getCategoriesDate()
+              ..getFavorites()),
       ],
       child: MaterialApp(
         themeMode: ThemeMode.light,

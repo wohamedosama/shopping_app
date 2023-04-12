@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/constant.dart';
+import 'package:shopping_app/cubits/shop/shop_cubit.dart';
 import 'package:shopping_app/model/home_model/home_model.dart';
 
 class BuildGridProducts extends StatelessWidget {
@@ -44,15 +45,18 @@ class BuildGridProducts extends StatelessWidget {
                 Text(
                   productsModel.name!,
                   overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: const TextStyle(fontSize: 15, height: 1.2),
+                  maxLines: 1,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    height: 1.2,
+                  ),
                 ),
                 Row(
                   children: [
                     Text(
                       productsModel.price!.toString(),
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
+                      maxLines: 1,
                       style: const TextStyle(
                         fontSize: 16,
                         height: 1.2,
@@ -72,13 +76,24 @@ class BuildGridProducts extends StatelessWidget {
                             decoration: TextDecoration.lineThrough),
                       ),
                     const Spacer(),
-                    IconButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: () {},
+                    CircleAvatar(
+                      radius: 16.5,
+                      backgroundColor:
+                          ShopCubit.get(context).favorites[productsModel.id]!
+                              ? defaultColor
+                              : Colors.grey,
+                      child: IconButton(
+                        onPressed: () {
+                          ShopCubit.get(context)
+                              .changeFavorites(productsModel.id!);
+                        },
                         icon: const Icon(
                           Icons.favorite_border,
-                          size: 18,
-                        )),
+                          size: 17,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],
