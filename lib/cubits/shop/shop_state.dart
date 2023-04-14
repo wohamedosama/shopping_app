@@ -39,6 +39,8 @@ class ShopLFailureChangeFavoritesDataState extends ShopState {
   ShopLFailureChangeFavoritesDataState(this.errorMessage);
 }
 
+class ShopLoadingGetFavoritesState extends ShopState {}
+
 class ShopSuccessGetFavoritesState extends ShopState {}
 
 class ShopFailureGetFavoritesState extends ShopState {

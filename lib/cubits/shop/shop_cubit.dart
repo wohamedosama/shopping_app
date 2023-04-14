@@ -71,14 +71,14 @@ class ShopCubit extends Cubit<ShopState> {
     });
   }
 
-  void changeFavorites(int productId) {
+  void changeFavorites(int? productId) {
     favorites[productId] = !favorites[productId]!;
     emit(ShopChangeFavoritesState());
 
     DioHelper.postData(
       url: favorite,
       data: {
-        'product_id': productId,
+        'product_id': productId!,
       },
       token: token,
     ).then((value) {
@@ -86,6 +86,8 @@ class ShopCubit extends Cubit<ShopState> {
       print(value.data);
       if (!changeFavoritesModel!.status!) {
         favorites[productId] = !favorites[productId]!;
+      } else {
+        getFavorites();
       }
       emit(ShopSuccessChangeFavoritesDataState(changeFavoritesModel));
     }).catchError((error) {
@@ -96,6 +98,7 @@ class ShopCubit extends Cubit<ShopState> {
   }
 
   void getFavorites() {
+    emit(ShopLoadingGetFavoritesState());
     DioHelper.getDate(
       url: favorite,
       token: token,

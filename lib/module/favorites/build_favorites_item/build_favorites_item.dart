@@ -1,33 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_app/constant.dart';
 import 'package:shopping_app/cubits/shop/shop_cubit.dart';
-import 'package:shopping_app/model/home_model/home_model.dart';
+import 'package:shopping_app/model/favorites_model/favorites_model.dart';
 
-class BuildGridProducts extends StatelessWidget {
-  const BuildGridProducts({Key? key, required this.productsModel})
-      : super(key: key);
-  final ProductsModel productsModel;
+class BuildFavoritesItems extends StatelessWidget {
+  const BuildFavoritesItems({
+    Key? key,
+    this.dataFavorites,
+    this.favoritesModel,
+  }) : super(key: key);
+
+  final FavoritesModel? favoritesModel;
+  final DataFavorites? dataFavorites;
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ShopCubit, ShopState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        return Container(
-          color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: SizedBox(
+        height: 120,
+        child: Row(
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 120,
+              width: 120,
+              child: Stack(
                 alignment: AlignmentDirectional.bottomStart,
                 children: [
                   Image.network(
-                    productsModel.image!,
-                    width: double.infinity,
-                    height: 200,
+                    dataFavorites!.products!.image!,
+                    width: 120,
+                    height: 120,
                   ),
-                  if (productsModel.discount != 0)
+                  if (dataFavorites!.products!.discount != 0)
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       color: Colors.red,
@@ -41,24 +47,30 @@ class BuildGridProducts extends StatelessWidget {
                     ),
                 ],
               ),
-              Padding(
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      productsModel.name!,
+                      dataFavorites!.products!.name!,
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
+                      maxLines: 2,
                       style: const TextStyle(
                         fontSize: 15,
                         height: 1.2,
                       ),
                     ),
+                    const Spacer(),
                     Row(
                       children: [
                         Text(
-                          productsModel.price!.toString(),
+                          dataFavorites!.products!.price.toString(),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: const TextStyle(
@@ -68,9 +80,9 @@ class BuildGridProducts extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 5),
-                        if (productsModel.discount != 0)
+                        if (dataFavorites!.products!.discount != 0)
                           Text(
-                            productsModel.oldPrice!.toString(),
+                            dataFavorites!.products!.oldPrice.toString(),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                             style: const TextStyle(
@@ -83,13 +95,13 @@ class BuildGridProducts extends StatelessWidget {
                         CircleAvatar(
                           radius: 16.5,
                           backgroundColor: ShopCubit.get(context)
-                                  .favorites[productsModel.id]!
+                                  .favorites[dataFavorites!.products!.id]!
                               ? defaultColor
                               : Colors.grey,
                           child: IconButton(
                             onPressed: () {
-                              ShopCubit.get(context)
-                                  .changeFavorites(productsModel.id!);
+                              ShopCubit.get(context).changeFavorites(
+                                  dataFavorites!.products!.id!);
                             },
                             icon: const Icon(
                               Icons.favorite_border,
@@ -103,10 +115,10 @@ class BuildGridProducts extends StatelessWidget {
                   ],
                 ),
               ),
-            ],
-          ),
-        );
-      },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
