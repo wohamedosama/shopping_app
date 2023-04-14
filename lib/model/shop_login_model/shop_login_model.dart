@@ -19,17 +19,6 @@ class UserData {
   int? points;
   int? credit;
   String? token;
-  //
-  // UserData({
-  //   required this.id,
-  //   required this.name,
-  //   required this.email,
-  //   required this.phone,
-  //   required this.image,
-  //   required this.points,
-  //   required this.credit,
-  //   required this.token,
-  // });
 
   UserData.fromJson(json) {
     id = json['id'];

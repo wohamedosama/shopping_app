@@ -17,20 +17,22 @@ class FavoritesScreen extends StatelessWidget {
       builder: (context, state) {
         return ConditionalBuilder(
           condition: state is! ShopLoadingGetFavoritesState,
-          builder: (BuildContext context) {
-            return ListView.separated(
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (context, index) => BuildFavoritesItems(
-                dataFavorites: ShopCubit.get(context)
-                    .favoritesModel!
-                    .data!
-                    .dataFavorites[index],
-              ),
-              separatorBuilder: (context, index) => const DividerItem(),
-              itemCount: 10,
-            );
-          },
-          fallback: (BuildContext context) =>
+          builder: (context) => ListView.separated(
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (context, index) => BuildFavoritesItems(
+              dataFavorites: ShopCubit.get(context)
+                  .favoritesModel!
+                  .data!
+                  .dataFavorites[index],
+            ),
+            separatorBuilder: (context, index) => const DividerItem(),
+            itemCount: ShopCubit.get(context)
+                .favoritesModel!
+                .data!
+                .dataFavorites
+                .length,
+          ),
+          fallback: (context) =>
               const Center(child: CircularProgressIndicator()),
         );
       },

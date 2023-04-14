@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 Widget defaultButton({
   double width = double.infinity,
   Color background = Colors.blue,
-  double radius = 12.0,
+  double radius = 10.0,
   bool isUpperCase = true,
   required void Function()? onPressed,
   required String text,
@@ -23,6 +23,8 @@ Widget defaultButton({
           isUpperCase ? text.toUpperCase() : text,
           style: const TextStyle(
             color: Colors.white,
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
