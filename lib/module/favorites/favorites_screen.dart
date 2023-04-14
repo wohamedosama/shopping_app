@@ -1,4 +1,3 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_app/cubits/shop/shop_cubit.dart';
@@ -15,23 +14,17 @@ class FavoritesScreen extends StatelessWidget {
     return BlocConsumer<ShopCubit, ShopState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return ConditionalBuilder(
-          condition: state is! ShopLoadingGetFavoritesState,
-          builder: (BuildContext context) {
-            return ListView.separated(
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (context, index) => BuildFavoritesItems(
-                dataFavorites: ShopCubit.get(context)
-                    .favoritesModel!
-                    .data!
-                    .dataFavorites[index],
-              ),
-              separatorBuilder: (context, index) => const DividerItem(),
-              itemCount: 10,
-            );
-          },
-          fallback: (BuildContext context) =>
-              const Center(child: CircularProgressIndicator()),
+        return ListView.separated(
+          physics: const BouncingScrollPhysics(),
+          itemBuilder: (context, index) => BuildFavoritesItems(
+            dataFavorites: ShopCubit.get(context)
+                .favoritesModel!
+                .data!
+                .dataFavorites[index],
+          ),
+          separatorBuilder: (context, index) => const DividerItem(),
+          itemCount:
+              ShopCubit.get(context).favoritesModel!.data!.dataFavorites.length,
         );
       },
     );
