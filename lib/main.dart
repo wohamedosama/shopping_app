@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_app/constant.dart';
 import 'package:shopping_app/cubits/login/shop_login_cubit.dart';
+import 'package:shopping_app/cubits/register/register_cubit.dart';
 import 'package:shopping_app/cubits/shop/shop_cubit.dart';
 import 'package:shopping_app/layout/shop/shop_layout.dart';
 import 'package:shopping_app/module/login_screen/login_screen.dart';
@@ -21,6 +22,7 @@ void main() async {
   Widget? widget;
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
   token = CacheHelper.getData(key: 'token');
+  print(token);
 
   if (onBoarding != null) {
     if (token != null) {
@@ -52,6 +54,7 @@ class ShopApp extends StatelessWidget {
             ..getFavorites()
             ..getUserData(),
         ),
+        BlocProvider(create: (context) => RegisterCubit()),
       ],
       child: MaterialApp(
         themeMode: ThemeMode.light,
@@ -60,7 +63,7 @@ class ShopApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         routes: {
           LoginScreen.id: (context) => LoginScreen(),
-          RegisterScreen.id: (context) => const RegisterScreen(),
+          RegisterScreen.id: (context) => RegisterScreen(),
           SearchScreen.id: (context) => const SearchScreen(),
         },
         home: startWidget,
