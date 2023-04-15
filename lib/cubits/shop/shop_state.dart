@@ -62,3 +62,17 @@ class ShopLFailureUserDataState extends ShopState {
 
   ShopLFailureUserDataState(this.errorMessage);
 }
+
+class ShopLoadingUpDateUserState extends ShopState {}
+
+class ShopSuccessUpDateUserState extends ShopState {
+  final ShopLoginModel? shopLoginModel;
+
+  ShopSuccessUpDateUserState(this.shopLoginModel);
+}
+
+class ShopLFailureUpDateUserState extends ShopState {
+  final String errorMessage;
+
+  ShopLFailureUpDateUserState(this.errorMessage);
+}
