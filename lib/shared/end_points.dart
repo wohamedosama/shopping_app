@@ -11,3 +11,5 @@ const profile = 'profile';
 const register = 'register?name&phone';
 
 const updateProfile = 'update-profile';
+
+const productsSearch = 'products/search';

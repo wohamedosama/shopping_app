@@ -64,7 +64,7 @@ class ShopApp extends StatelessWidget {
         routes: {
           LoginScreen.id: (context) => LoginScreen(),
           RegisterScreen.id: (context) => RegisterScreen(),
-          SearchScreen.id: (context) => const SearchScreen(),
+          SearchScreen.id: (context) => SearchScreen(),
         },
         home: startWidget,
       ),

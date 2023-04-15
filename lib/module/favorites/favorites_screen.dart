@@ -20,10 +20,11 @@ class FavoritesScreen extends StatelessWidget {
           builder: (context) => ListView.separated(
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) => BuildFavoritesItems(
-              dataFavorites: ShopCubit.get(context)
+              productsModel: ShopCubit.get(context)
                   .favoritesModel!
                   .data!
-                  .dataFavorites[index],
+                  .dataFavorites[index]
+                  .products!,
             ),
             separatorBuilder: (context, index) => const DividerItem(),
             itemCount: ShopCubit.get(context)

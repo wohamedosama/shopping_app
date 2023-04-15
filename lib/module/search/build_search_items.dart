@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/constant.dart';
 import 'package:shopping_app/cubits/shop/shop_cubit.dart';
-import 'package:shopping_app/model/favorites_model/favorites_model.dart';
+import 'package:shopping_app/model/search_model/search_model.dart';
 
-class BuildFavoritesItems extends StatelessWidget {
-  const BuildFavoritesItems({
+class BuildSearchItems extends StatelessWidget {
+  const BuildSearchItems({
     Key? key,
-    this.productsModel,
+    this.dataList,
+    this.isOldPrice = true,
   }) : super(key: key);
 
-  final Products? productsModel;
+  final DataList? dataList;
+  final bool? isOldPrice;
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +29,11 @@ class BuildFavoritesItems extends StatelessWidget {
                 alignment: AlignmentDirectional.bottomStart,
                 children: [
                   Image.network(
-                    productsModel!.image!,
+                    dataList!.image!,
                     width: 120,
                     height: 120,
                   ),
-                  if (productsModel!.discount != 0)
+                  if (dataList!.discount != 0 && isOldPrice!)
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       color: Colors.red,
@@ -56,7 +58,7 @@ class BuildFavoritesItems extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      productsModel!.name!,
+                      dataList!.name!,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       style: const TextStyle(
@@ -68,7 +70,7 @@ class BuildFavoritesItems extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          productsModel!.price.toString(),
+                          dataList!.price.toString(),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: const TextStyle(
@@ -78,9 +80,9 @@ class BuildFavoritesItems extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 5),
-                        if (productsModel!.discount != 0)
+                        if (dataList!.discount != 0 && isOldPrice!)
                           Text(
-                            productsModel!.oldPrice.toString(),
+                            dataList!.oldPrice.toString(),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                             style: const TextStyle(
@@ -92,14 +94,14 @@ class BuildFavoritesItems extends StatelessWidget {
                         const Spacer(),
                         CircleAvatar(
                           radius: 16.5,
-                          backgroundColor: ShopCubit.get(context)
-                                  .favorites[productsModel!.id]!
-                              ? defaultColor
-                              : Colors.grey,
+                          backgroundColor:
+                              ShopCubit.get(context).favorites[dataList!.id]!
+                                  ? defaultColor
+                                  : Colors.grey,
                           child: IconButton(
                             onPressed: () {
                               ShopCubit.get(context)
-                                  .changeFavorites(productsModel!.id!);
+                                  .changeFavorites(dataList!.id!);
                             },
                             icon: const Icon(
                               Icons.favorite_border,
